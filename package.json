@@ -17,6 +17,8 @@
   },
   "homepage": "https://github.com/WillBlake01/Bamazon#readme",
   "dependencies": {
+    "colors": "^1.1.2",
+    "console-table": "^0.1.2",
     "mysql": "^2.15.0"
   }
 }
