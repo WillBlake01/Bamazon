@@ -35,7 +35,7 @@ con.connect(function (err) {
 
       console.log('*********Items for Sale************');
 
-      var header = ['ID', 'Product Name', 'Price'];
+      var header = ['ID', 'Product Name', 'Price', 'Quantity'];
       var table = [];
       for (var i = 0; i < res.length; i++) {
         table.push(Object.values(res[i]));
@@ -52,7 +52,7 @@ con.connect(function (err) {
             name: 'id',
             message: 'Which item ID would you like to purchase?',
             validate: function (val) {
-              return val > 0 && val <= table.length;
+              return val > 0 && val <= res.length;
             },
           },
           {
