@@ -102,7 +102,46 @@ function viewLowInventory() {
 }
 
 function addInventory() {
+  con.query(
+    'SELECT item_id, product_name, price, stock_quantity FROM products',
+    function (err, res) {
+    if (err) throw err;
+    console.log('****************Items for Sale******************');
 
+    var header = ['ID', 'Product Name', 'Price', 'Quantity'];
+    var table = [];
+    for (var i = 0; i < res.length; i++) {
+      table.push(Object.values(res[i]));
+    }
+
+    // basic usage
+    var wt = new WordTable(header, table);
+    console.log(wt.string());
+
+    inquirer
+      .prompt([
+        {
+          type: 'input',
+          name: 'id',
+          message: 'Which item ID would you like to add inventory?',
+          validate: function (val) {
+            return val > 0 && val <= res.length;
+          },
+        },
+        {
+          type: 'input',
+          name: 'quantity',
+          message: 'How many would you like to add?',
+          validate: function (val) {
+            return val !== '' && val > 0;
+          },
+        },
+    ])
+
+    .then(function (answers) {
+        
+      });
+  });
 }
 
 function addProduct() {
