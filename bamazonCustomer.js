@@ -28,7 +28,9 @@ con.connect(function (err) {
 
   function displayItems() {
     // Start display items available for sale
-    con.query('SELECT item_id, product_name, price FROM products', function (err, res) {
+    con.query(
+      'SELECT item_id, product_name, price, stock_quantity FROM products',
+      function (err, res) {
       if (err) throw err;
 
       console.log('*********Items for Sale************');
@@ -72,8 +74,10 @@ con.connect(function (err) {
             [answers.quantity, answers.id],
             function (err) {
               if (err) throw err;
-              console.log('Item in stock, available to promise!'.info);
+              console.log('Your order has been fulfilled!'.info);
             });
+
+            displayTotal(answers);
           }
         });
     });
@@ -81,3 +85,11 @@ con.connect(function (err) {
 
   // End display items available for sale
 });
+
+function displayTotal(answers) {
+  con.query('SELECT price FROM products', function (err, res) {
+    if (err) throw err;
+    var totalPrice = answers.quantity * res[answers.id - 1].price;
+    console.log('Your total is '.info + '$' + totalPrice);
+  });
+}
