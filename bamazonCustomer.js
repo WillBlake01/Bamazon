@@ -1,6 +1,5 @@
 var mysql = require('mysql');
 var inquirer = require('inquirer');
-var consoleTable = require('console-table');
 var WordTable = require('word-table');
 var colors = require('colors');
 
@@ -23,7 +22,6 @@ var con = mysql.createConnection({
 
 con.connect(function (err) {
   if (err) throw err;
-  console.log('Connected!'.info);
   displayItems();
 
   function displayItems() {
