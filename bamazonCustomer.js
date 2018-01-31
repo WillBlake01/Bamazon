@@ -89,5 +89,11 @@ function displayTotal(answers) {
     if (err) throw err;
     var totalPrice = answers.quantity * res[answers.id - 1].price;
     console.log('Your total is '.info + '$' + totalPrice);
+    console.log('Thank you for your purchase!'.magenta);
+    con.query('UPDATE products SET product_sales = product_sales + ? WHERE item_id = 2;',
+      [answers.quantity * res[answers.id - 1].price],
+      function (err) {
+        if (err) throw err;
+      });
   });
 }

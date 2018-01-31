@@ -79,6 +79,7 @@ function viewProducts() {
     // basic usage
     var wt = new WordTable(header, table);
     console.log(wt.string());
+    managerPrompt();
   });
 }
 
@@ -98,6 +99,7 @@ function viewLowInventory() {
       // basic usage
       var wt = new WordTable(header, table);
       console.log(wt.string());
+      managerPrompt();
     });
 }
 
@@ -145,6 +147,7 @@ function addInventory() {
         function (err) {
           if (err) throw err;
           console.log('Stock quantity updated!'.info);
+          managerPrompt();
         });
       });
   });
@@ -193,6 +196,7 @@ function addProduct() {
       function (err) {
         if (err) throw err;
         console.log('New product added!'.info);
+        managerPrompt();
       });
   });
 }
