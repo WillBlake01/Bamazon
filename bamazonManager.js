@@ -139,7 +139,13 @@ function addInventory() {
     ])
 
     .then(function (answers) {
-        
+        con.query
+        ('UPDATE products SET stock_quantity = stock_quantity + ?',
+        [answers.quantity],
+        function (err) {
+          if (err) throw err;
+          console.log('Stock quantity updated!'.info);
+        });
       });
   });
 }
