@@ -24,12 +24,12 @@ var con = mysql.createConnection({
 con.connect(function (err) {
   if (err) throw err;
   console.log('Connected!'.info);
-  console.log('Press Ctrl + C to exit');
-  console.log(' ');
   supervisorPrompt();
 });
 
 function supervisorPrompt() {
+  console.log('Press Ctrl + C to exit');
+  console.log(' ');
   inquirer
   .prompt({
       type: 'list',
@@ -74,7 +74,6 @@ function viewSales() {
     // basic usage
     var wt = new WordTable(header, table);
     console.log(wt.string());
-    console.log(' ');
     supervisorPrompt();
   });
 }

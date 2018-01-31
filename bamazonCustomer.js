@@ -53,7 +53,7 @@ con.connect(function (err) {
             name: 'id',
             message: 'Which item ID would you like to purchase?',
             validate: function (val) {
-              return val > 0 && val <= res.length;
+              return val > 0 && val <= res.length + 1;
             },
           },
           {
