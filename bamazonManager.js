@@ -151,5 +151,48 @@ function addInventory() {
 }
 
 function addProduct() {
+  inquirer
+    .prompt([
+      {
+        type: 'input',
+        name: 'name',
+        message: 'What is the new product name?',
+        validate: function (val) {
+          return val !== '';
+        },
+      },
+      {
+        type: 'input',
+        name: 'department',
+        message: 'What is the new product department?',
+        validate: function (val) {
+          return val !== '';
+        },
+      },
+      {
+        type: 'input',
+        name: 'price',
+        message: 'What is the new product price?',
+        validate: function (val) {
+          return val !== '' && val > 0;
+        },
+      },
+      {
+        type: 'input',
+        name: 'quantity',
+        message: 'What is the new product quantity?',
+        validate: function (val) {
+          return val !== '' && val > 0;
+        },
+      },
+  ])
 
+  .then(function (answers) {
+    con.query('INSERT INTO products (product_name, department_name, price, stock_quantity) VALUES (?, ?, ?, ?)',
+      [answers.name, answers.department, answers.price, answers.quantity],
+      function (err) {
+        if (err) throw err;
+        console.log('New product added!'.info);
+      });
+  });
 }
