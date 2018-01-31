@@ -68,6 +68,7 @@ function viewProducts() {
     'SELECT item_id, product_name, price, stock_quantity FROM products',
     function (err, res) {
     if (err) throw err;
+    console.log(' ');
     console.log('****************Items for Sale******************');
 
     var header = ['ID', 'Product Name', 'Price', 'Quantity'];
@@ -79,6 +80,7 @@ function viewProducts() {
     // basic usage
     var wt = new WordTable(header, table);
     console.log(wt.string());
+    console.log(' ');
     managerPrompt();
   });
 }
@@ -88,6 +90,7 @@ function viewLowInventory() {
     'SELECT item_id, product_name, price, stock_quantity FROM products WHERE stock_quantity < 5',
     function (err, res) {
       if (err) throw err;
+      console.log(' ');
       console.log('*****************Low Quantity*******************'.warn);
 
       var header = ['ID', 'Product Name', 'Price', 'Quantity'];
@@ -99,6 +102,7 @@ function viewLowInventory() {
       // basic usage
       var wt = new WordTable(header, table);
       console.log(wt.string());
+      console.log(' ');
       managerPrompt();
     });
 }
@@ -108,6 +112,7 @@ function addInventory() {
     'SELECT item_id, product_name, price, stock_quantity FROM products',
     function (err, res) {
     if (err) throw err;
+    console.log(' ');
     console.log('****************Items for Sale******************');
 
     var header = ['ID', 'Product Name', 'Price', 'Quantity'];
@@ -147,6 +152,7 @@ function addInventory() {
         function (err) {
           if (err) throw err;
           console.log('Stock quantity updated!'.info);
+          console.log(' ');
           managerPrompt();
         });
       });
@@ -192,10 +198,11 @@ function addProduct() {
 
   .then(function (answers) {
     con.query('INSERT INTO products (product_name, department_name, price, stock_quantity) VALUES (?, ?, ?, ?)',
-      [answers.name, answers.department, answers.price, answers.quantity],
+      [answers.name.toLowerCase(), answers.department.toLowerCase(), answers.price, answers.quantity],
       function (err) {
         if (err) throw err;
         console.log('New product added!'.info);
+        console.log(' ');
         managerPrompt();
       });
   });
