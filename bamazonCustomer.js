@@ -22,6 +22,7 @@ var con = mysql.createConnection({
 
 con.connect(function (err) {
   if (err) throw err;
+  console.log(' ');
   displayItems();
 
   function displayItems() {
@@ -31,7 +32,7 @@ con.connect(function (err) {
       function (err, res) {
       if (err) throw err;
 
-      console.log('*********Items for Sale************');
+      console.log('****************Items for Sale******************');
 
       var header = ['ID', 'Product Name', 'Price', 'Quantity'];
       var table = [];
@@ -42,6 +43,8 @@ con.connect(function (err) {
       // basic usage
       var wt = new WordTable(header, table);
       console.log(wt.string());
+      console.log('Press Ctrl + C to exit');
+      console.log(' ');
 
       inquirer
         .prompt([
@@ -90,6 +93,8 @@ function displayTotal(answers) {
     var totalPrice = answers.quantity * res[answers.id - 1].price;
     console.log('Your total is '.info + '$' + totalPrice);
     console.log('Thank you for your purchase!'.magenta);
+    console.log('Press Ctrl + C to exit');
+    console.log(' ');
     con.query('UPDATE products SET product_sales = product_sales + ? WHERE item_id = ?;',
       [answers.quantity * res[answers.id - 1].price, answers.id],
       function (err) {

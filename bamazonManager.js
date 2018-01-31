@@ -28,6 +28,8 @@ con.connect(function (err) {
 });
 
 function managerPrompt() {
+  console.log('Press Ctrl + C to exit');
+  console.log(' ');
   inquirer
   .prompt({
       type: 'list',
@@ -80,7 +82,6 @@ function viewProducts() {
     // basic usage
     var wt = new WordTable(header, table);
     console.log(wt.string());
-    console.log(' ');
     managerPrompt();
   });
 }
@@ -102,7 +103,6 @@ function viewLowInventory() {
       // basic usage
       var wt = new WordTable(header, table);
       console.log(wt.string());
-      console.log(' ');
       managerPrompt();
     });
 }
@@ -124,6 +124,8 @@ function addInventory() {
     // basic usage
     var wt = new WordTable(header, table);
     console.log(wt.string());
+    console.log('Press Ctrl + C to exit');
+    console.log(' ');
 
     inquirer
       .prompt([

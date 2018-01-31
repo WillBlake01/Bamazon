@@ -24,6 +24,8 @@ var con = mysql.createConnection({
 con.connect(function (err) {
   if (err) throw err;
   console.log('Connected!'.info);
+  console.log('Press Ctrl + C to exit');
+  console.log(' ');
   supervisorPrompt();
 });
 
