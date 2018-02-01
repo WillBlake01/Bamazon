@@ -33,9 +33,11 @@ function displayItems() {
     var header = ['ID', 'Product Name', 'Price', 'Quantity'];
     var table = [];
     var itemId = [];
+    var price = [];
     for (var i = 0; i < res.length; i++) {
       table.push(Object.values(res[i]));
       itemId.push(res[i].item_id);
+      itemId.push(res[i].price);
     }
 
     // Creates table with word-table npm package based on above parameters
@@ -98,15 +100,17 @@ function displayItems() {
 
 // Displays total for purchase
 function displayTotal(answers) {
-  con.query('SELECT price FROM products', function (err, res) {
+  con.query('SELECT price FROM products WHERE item_id = ?',
+          [answers.id],
+          function (err, res) {
     if (err) throw err;
-    var totalPrice = answers.quantity * res[answers.id - 1].price;
+    var totalPrice = answers.quantity * res[0].price;
     console.log('Your total is '.info + '$' + totalPrice);
     console.log('Thank you for your purchase!'.magenta);
     console.log('Press Ctrl + C to exit');
     console.log(' ');
     con.query('UPDATE products SET product_sales = product_sales + ? WHERE item_id = ?;',
-      [answers.quantity * res[answers.id - 1].price, answers.id],
+      [answers.quantity * res.price, answers.id],
       function (err) {
         if (err) throw err;
       });
