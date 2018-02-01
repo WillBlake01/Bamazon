@@ -34,10 +34,12 @@ function displayItems() {
     var table = [];
     var itemId = [];
     var price = [];
+    var quantity = [];
     for (var i = 0; i < res.length; i++) {
       table.push(Object.values(res[i]));
       itemId.push(res[i].item_id);
       itemId.push(res[i].price);
+      itemId.push(res[i].quantity);
     }
 
     // Creates table with word-table npm package based on above parameters
@@ -110,7 +112,7 @@ function displayTotal(answers) {
     console.log('Press Ctrl + C to exit');
     console.log(' ');
     con.query('UPDATE products SET product_sales = product_sales + ? WHERE item_id = ?;',
-      [answers.quantity * res.price, answers.id],
+      [answers.quantity * res[0].price, answers.id],
       function (err) {
         if (err) throw err;
       });
