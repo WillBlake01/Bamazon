@@ -127,8 +127,10 @@ function addInventory() {
 
     var header = ['ID', 'Product Name', 'Price', 'Quantity'];
     var table = [];
+    var itemId = [];
     for (var i = 0; i < res.length; i++) {
       table.push(Object.values(res[i]));
+      itemId.push(res[i].item_id);
     }
 
     // basic usage
@@ -144,7 +146,12 @@ function addInventory() {
           name: 'id',
           message: 'Which item ID would you like to add inventory?',
           validate: function (val) {
-            return val > 0 && val <= res.length;
+            for (var i = 0; i < itemId.length; i++) {
+              var n = itemId[i];
+              if (n == val) {
+                return val > 0 && val == n;
+              }
+            }
           },
         },
         {

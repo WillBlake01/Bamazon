@@ -32,8 +32,10 @@ function displayItems() {
     // Table parameters
     var header = ['ID', 'Product Name', 'Price', 'Quantity'];
     var table = [];
+    var itemId = [];
     for (var i = 0; i < res.length; i++) {
       table.push(Object.values(res[i]));
+      itemId.push(res[i].item_id);
     }
 
     // Creates table with word-table npm package based on above parameters
@@ -52,7 +54,12 @@ function displayItems() {
           name: 'id',
           message: 'Which item ID would you like to purchase?',
           validate: function (val) {
-            return val > 0 && val <= (res.length);
+            for (var i = 0; i < itemId.length; i++) {
+              var n = itemId[i];
+              if (n == val) {
+                return val > 0 && val == n;
+              }
+            }
           },
         },
         {
@@ -68,6 +75,8 @@ function displayItems() {
     .then(function (answers) {
         if (res[answers.id - 1].stock_quantity < answers.quantity) {
           console.log('Insufficient stock! Your order has been cancelled'.error);
+          console.log(' ');
+          newPurchase();
         } else {
           con.query
             ('UPDATE products SET stock_quantity = stock_quantity - ? WHERE item_id = ?',
@@ -81,9 +90,9 @@ function displayItems() {
         }
       });
   });
-
-  // End inquirer npm package input prompt
 }
+
+// End inquirer npm package input prompt
 
 // End displays items available for sale
 
