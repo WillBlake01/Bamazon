@@ -33,13 +33,9 @@ function displayItems() {
     var header = ['ID', 'Product Name', 'Price', 'Quantity'];
     var table = [];
     var itemId = [];
-    var price = [];
-    var quantity = [];
     for (var i = 0; i < res.length; i++) {
       table.push(Object.values(res[i]));
       itemId.push(res[i].item_id);
-      itemId.push(res[i].price);
-      itemId.push(res[i].quantity);
     }
 
     // Creates table with word-table npm package based on above parameters
@@ -77,21 +73,27 @@ function displayItems() {
     ])
 
     .then(function (answers) {
-        if (quantity[0] < answers.quantity) {
-          console.log('Insufficient stock! Your order has been cancelled'.error);
-          console.log(' ');
-          newPurchase();
-        } else {
-          con.query
-            ('UPDATE products SET stock_quantity = stock_quantity - ? WHERE item_id = ?',
-          [answers.quantity, answers.id],
-          function (err) {
+        con.query(
+          'SELECT stock_quantity from products WHERE item_id = ?',
+            [answers.id],
+          function (err, res) {
             if (err) throw err;
-            console.log('Your order has been fulfilled!'.info);
-          });
+            if (res[0].stock_quantity < answers.quantity) {
+              console.log('Insufficient stock! Your order has been cancelled'.error);
+              console.log(' ');
+              newPurchase();
+            } else {
+              con.query
+                ('UPDATE products SET stock_quantity = stock_quantity - ? WHERE item_id = ?',
+              [answers.quantity, answers.id],
+              function (err) {
+                if (err) throw err;
+                console.log('Your order has been fulfilled!'.info);
+              });
 
-          displayTotal(answers);
-        }
+              displayTotal(answers);
+            }
+          });
       });
   });
 }
