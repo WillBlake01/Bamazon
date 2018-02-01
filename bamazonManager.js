@@ -1,3 +1,4 @@
+// Require npm package dependencies
 var mysql = require('mysql');
 var inquirer = require('inquirer');
 var consoleTable = require('console-table');
@@ -11,8 +12,7 @@ colors.setTheme({
   error: 'red'
 });
 
-// end set colors theme
-
+// Creates connection with mySQL database
 var con = mysql.createConnection({
   host: 'localhost',
   user: 'root',
@@ -21,15 +21,12 @@ var con = mysql.createConnection({
   database: 'bamazon'
 });
 
-con.connect(function (err) {
-  if (err) throw err;
-  console.log('Connected!'.info);
-  managerPrompt();
-});
-
+// Initiates manager prompt
 function managerPrompt() {
   console.log('Press Ctrl + C to exit');
   console.log(' ');
+
+  // Start inquirer npm package input prompt
   inquirer
   .prompt({
       type: 'list',
@@ -63,8 +60,13 @@ function managerPrompt() {
         break;
     }
   });
+
+  // Start inquirer npm package input prompt
 }
 
+// End initiates manager prompt
+
+// Provides manager view of products
 function viewProducts() {
   con.query(
     'SELECT item_id, product_name, price, stock_quantity FROM products',
@@ -73,19 +75,23 @@ function viewProducts() {
     console.log(' ');
     console.log('****************Items for Sale******************');
 
+    // Table parameters
     var header = ['ID', 'Product Name', 'Price', 'Quantity'];
     var table = [];
     for (var i = 0; i < res.length; i++) {
       table.push(Object.values(res[i]));
     }
 
-    // basic usage
+    // Creates table with word-table npm package based on above parameters
     var wt = new WordTable(header, table);
     console.log(wt.string());
     managerPrompt();
   });
 }
 
+// End provides manager view of products
+
+// Provides manager view of products with low inventory
 function viewLowInventory() {
   con.query(
     'SELECT item_id, product_name, price, stock_quantity FROM products WHERE stock_quantity < 5',
@@ -94,19 +100,23 @@ function viewLowInventory() {
       console.log(' ');
       console.log('*****************Low Quantity*******************'.warn);
 
+      // Table parameters
       var header = ['ID', 'Product Name', 'Price', 'Quantity'];
       var table = [];
       for (var i = 0; i < res.length; i++) {
         table.push(Object.values(res[i]));
       }
 
-      // basic usage
+      // Creates table with word-table npm package based on above parameters
       var wt = new WordTable(header, table);
       console.log(wt.string());
       managerPrompt();
     });
 }
 
+// End provides manager view of products with low inventory
+
+// Adds manager functionality to add inventory when product is received
 function addInventory() {
   con.query(
     'SELECT item_id, product_name, price, stock_quantity FROM products',
@@ -161,6 +171,9 @@ function addInventory() {
   });
 }
 
+// End adds manager functionality to add inventory when product is received
+
+// Adds manager functionality to add a new product to database
 function addProduct() {
   inquirer
     .prompt([
@@ -209,3 +222,14 @@ function addProduct() {
       });
   });
 }
+
+// End Adds manager functionality to add a new product to database
+
+// Initializes app on connection
+con.connect(function (err) {
+  if (err) throw err;
+  console.log('Connected!'.info);
+  managerPrompt();
+});
+
+// End Node application

@@ -1,3 +1,4 @@
+// Require npm package dependencies
 var mysql = require('mysql');
 var inquirer = require('inquirer');
 var consoleTable = require('console-table');
@@ -11,8 +12,7 @@ colors.setTheme({
   error: 'red'
 });
 
-// end set colors theme
-
+// Creates connection with mySQL database
 var con = mysql.createConnection({
   host: 'localhost',
   user: 'root',
@@ -21,15 +21,12 @@ var con = mysql.createConnection({
   database: 'bamazon'
 });
 
-con.connect(function (err) {
-  if (err) throw err;
-  console.log('Connected!'.info);
-  supervisorPrompt();
-});
-
+// Initiates supervisor prompt
 function supervisorPrompt() {
   console.log('Press Ctrl + C to exit');
   console.log(' ');
+
+  // Start inquirer npm package input prompt
   inquirer
   .prompt({
       type: 'list',
@@ -53,8 +50,13 @@ function supervisorPrompt() {
         break;
     }
   });
+
+  // End inquirer npm package input prompt
 }
 
+// End initiates supervisor prompt
+
+// Provides supervisor sales view
 function viewSales() {
   con.query(
     'SELECT departments.department_id, departments.department_name, departments.over_head_costs, products.product_sales FROM departments LEFT JOIN products ON products.department_name = departments.department_name GROUP BY department_id',
@@ -78,6 +80,9 @@ function viewSales() {
   });
 }
 
+// End provides supervisor sales view
+
+// Provides supervisor functionality to create a new department
 function createDepartment() {
   inquirer
     .prompt([
@@ -110,3 +115,11 @@ function createDepartment() {
       });
   });
 }
+
+// End supervisor functionality to create a new department
+
+con.connect(function (err) {
+  if (err) throw err;
+  console.log('Connected!'.info);
+  supervisorPrompt();
+});

@@ -44,6 +44,7 @@ function displayItems() {
 
     // End creates table
 
+    // Start inquirer npm package input prompt
     inquirer
       .prompt([
         {
@@ -80,6 +81,8 @@ function displayItems() {
         }
       });
   });
+
+  // End inquirer npm package input prompt
 }
 
 // End displays items available for sale
@@ -126,6 +129,7 @@ function newPurchase() {
           break;
         case 'No':
           console.log('Thank you, have a great day!'.magenta);
+          console.log('Press Ctrl + C to exit');
       }
 
     });
