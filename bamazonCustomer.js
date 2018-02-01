@@ -77,7 +77,7 @@ function displayItems() {
     ])
 
     .then(function (answers) {
-        if (res[answers.id - 1].stock_quantity < answers.quantity) {
+        if (quantity[0] < answers.quantity) {
           console.log('Insufficient stock! Your order has been cancelled'.error);
           console.log(' ');
           newPurchase();
