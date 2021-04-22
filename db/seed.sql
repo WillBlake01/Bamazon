@@ -9,3 +9,14 @@ INSERT INTO products (product_name, department_name, price, stock_quantity, prod
 ('headphones', 'electronics', 190, 24, 0),
 ('tires', 'motors', 167, 1221, 0),
 ('packaging tape', 'business & industrial', 14.30, 3200, 0);
+
+INSERT INTO departments (department_name, over_head_costs) VALUES
+('electronics', 2700),
+('antiques', 462.11),
+('home & garden', 179.29),
+('sporting goods', 630),
+('fashion', 1118),
+('toys', 294),
+('music', 715),
+('motors', 4400),
+('business & industrial', 2833.54);

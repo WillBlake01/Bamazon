@@ -1,8 +1,8 @@
 // Require npm package dependencies
 import inquirer from 'inquirer';
 import WordTable from 'word-table';
-import { con } from './db/sqlConnection.js'
-import colors from './config/colors.js'
+import { con } from './db/sqlConnection.js';
+import colors from './config/colors.js';
 
 // Initiates supervisor prompt
 function supervisorPrompt() {
