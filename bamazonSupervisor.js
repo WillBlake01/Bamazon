@@ -1,25 +1,14 @@
 // Require npm package dependencies
-var mysql = require('mysql');
-var inquirer = require('inquirer');
-var consoleTable = require('console-table');
-var WordTable = require('word-table');
-var colors = require('colors');
-require('dotenv').config();
+import inquirer from 'inquirer';
+import WordTable from 'word-table';
+import colors from 'colors';
+import { con } from './db/sqlConnection.js'
 
 // Start set colors theme
 colors.setTheme({
   info: 'green',
   warn: 'yellow',
   error: 'red'
-});
-
-// Creates connection with mySQL database
-var con = mysql.createConnection({
-  host: 'localhost',
-  user: 'root',
-  password: process.env.MYSQL_PASSWORD,
-  port: '8889',
-  database: 'bamazon'
 });
 
 // Initiates supervisor prompt

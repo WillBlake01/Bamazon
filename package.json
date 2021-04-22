@@ -24,5 +24,6 @@
     "inquirer": "^8.0.0",
     "mysql": "^2.18.1",
     "word-table": "^1.0.3"
-  }
+  },
+  "type": "module"
 }
