@@ -4,6 +4,7 @@ var inquirer = require('inquirer');
 var consoleTable = require('console-table');
 var WordTable = require('word-table');
 var colors = require('colors');
+require('dotenv').config();
 
 // Start set colors theme
 colors.setTheme({
@@ -16,7 +17,7 @@ colors.setTheme({
 var con = mysql.createConnection({
   host: 'localhost',
   user: 'root',
-  password: 'root',
+  password: process.env.MYSQL_PASSWORD,
   port: '8889',
   database: 'bamazon'
 });
