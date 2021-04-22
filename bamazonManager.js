@@ -1,15 +1,8 @@
 // Require npm package dependencies
 import inquirer from 'inquirer';
 import WordTable from 'word-table';
-import colors from 'colors';
-import { con } from './db/sqlConnection';
-
-// Start set colors theme
-colors.setTheme({
-  info: 'green',
-  warn: 'yellow',
-  error: 'red'
-});
+import { con } from './db/sqlConnection.js';
+import colors from './config/colors.js';
 
 // Initiates manager prompt
 function managerPrompt() {

@@ -14,6 +14,4 @@ const con = mysql.createConnection({
   socketPath: '/Applications/MAMP/tmp/mysql/mysql.sock'
 })
 
-console.log(con.config.password)
-
 export { con };
