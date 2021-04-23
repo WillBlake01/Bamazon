@@ -42,7 +42,7 @@ function supervisorPrompt() {
 // Provides supervisor sales view
 function viewSales() {
   con.query(
-    'SELECT departments.department_id, departments.department_name, departments.over_head_costs, products.product_sales FROM departments LEFT JOIN products ON products.department_name = departments.department_name GROUP BY department_id',
+    'SELECT DISTINCT departments.department_id, departments.department_name, departments.over_head_costs, products.product_sales FROM departments LEFT JOIN products ON products.department_name = departments.department_name',
     function (err, res) {
     if (err) throw err;
 
@@ -51,9 +51,11 @@ function viewSales() {
 
     var header = ['ID', 'Department Name', 'Overhead Cost', 'Product Sales', 'Total Profit'];
     var table = [];
-    var profit = (res.product_sales - res.over_head_costs);
     for (var i = 0; i < res.length; i++) {
-      table.push(Object.values(res[i]));
+      var values = Array.from(Object.values(res[i]));
+      var profit = res[i].product_sales - res[i].over_head_costs;
+      values.push(profit);
+      table.push(values);
     }
 
     // basic usage
